@@ -2,9 +2,7 @@ const superagent = require('superagent');
 const LOCATIONS = require('../locations.js');
 
 
-module.exports = async
-
-function findNearestToilet(lat, long) {
+module.exports = async function findNearestToilet(lat, long) {
 
     const [
         nearestToiletFromDB,
@@ -38,9 +36,7 @@ function pointDistance(lat1, lon1, lat2, lon2) {
 }
 
 
-async
-
-function findNearestToiletFromDB(lat, long) {
+async function findNearestToiletFromDB(lat, long) {
 
     const sortedLocations = LOCATIONS.sort((a, b) => pointDistance(a.coords[0], a.coords[1], lat, long) > pointDistance(b.coords[0], b.coords[1], lat, long) ? 1 : -1
 )
@@ -53,9 +49,7 @@ function findNearestToiletFromDB(lat, long) {
 }
 
 
-async
-
-function findNearestToiletFromGoogle(lat, long) {
+async function findNearestToiletFromGoogle(lat, long) {
 
     const responseRaw = await
     superagent.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${ long}&rankby=distance&type=restaurant,supermarket,subway_station&query=toilet&keyword=&opennow&key=AIzaSyDeTjAOKV66YAuO1TOWIiX11etHey_cPJc`);

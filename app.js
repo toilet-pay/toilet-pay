@@ -214,9 +214,7 @@ function receivedAuthentication(event) {
  * then we'll simply confirm that we've received the attachment.
  *
  */
-async
-
-function receivedMessage(event) {
+async function receivedMessage(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
     var timeOfMessage = event.timestamp;
