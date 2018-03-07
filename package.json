@@ -1,7 +1,13 @@
 {
-  "name": "messenger-get-started",
-  "version": "1.0.0",
-  "description": "Get started example for Messenger Platform",
+  "name": "toilet-pay-chaybot",
+  "version": "0.1.0",
+  "description": "To'Let you use our toilet.",
+  "author": "Pavol Hejný",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/toilet-pay/toilet-pay-chatbot"
+  },
+
   "main": "app.js",
   "engines": {
     "node": "8.9.4"
@@ -11,12 +17,6 @@
     "lint": "jshint --exclude node_modules .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/fbsamples/messenger-platform-samples.git"
-  },
-  "author": "Facebook",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.0",
     "config": "^1.20.4",
