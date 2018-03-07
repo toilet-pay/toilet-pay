@@ -42,7 +42,7 @@ async
 
 function findNearestToiletFromDB(lat, long) {
 
-    const sortedLocations = LOCATIONS.sort((a, b) = > pointDistance(a.coords[0], a.coords[1], lat, long) > pointDistance(b.coords[0], b.coords[1], lat, long) ? 1 : -1
+    const sortedLocations = LOCATIONS.sort((a, b) => pointDistance(a.coords[0], a.coords[1], lat, long) > pointDistance(b.coords[0], b.coords[1], lat, long) ? 1 : -1
 )
 
     //console.log(sortedLocations);
@@ -80,7 +80,7 @@ function findNearestToiletFromGoogle(lat, long) {
 }
 
 
-findNearestToiletFromGoogle(50.0874174, 14.4027273).then((toilet) = > {
+findNearestToiletFromGoogle(50.0874174, 14.4027273).then((toilet) => {
     console.log('=======================================');
 console.log(toilet);
 })
