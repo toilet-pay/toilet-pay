@@ -436,7 +436,7 @@ function receivedMessage(event) {
                             //sendTypingOn(senderID);
 
                         },1000*600);*/
-                        setTimeout(() = > {
+                        setTimeout(() => {
 
                             sendGeneric(senderID, {
                                 text: `Were you satisfied on toilet in ${toilet.name}?`,
