@@ -58,7 +58,7 @@ async
 function findNearestToiletFromGoogle(lat, long) {
 
     const responseRaw = await
-    superagent.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${ long}&rankby=distance&query=toilet&keyword=&opennow&key=AIzaSyDeTjAOKV66YAuO1TOWIiX11etHey_cPJc`);
+    superagent.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${ long}&rankby=distance&type=restaurant,supermarket,subway_station&query=toilet&keyword=&opennow&key=AIzaSyDeTjAOKV66YAuO1TOWIiX11etHey_cPJc`);
 
 
     const response = JSON.parse(responseRaw.text);
