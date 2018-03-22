@@ -74,12 +74,14 @@ async function findNearestToiletFromGoogle(lat, long) {
 }
 
 
+/*
 findNearestToiletFromGoogle(50.050445, 14.432343).then((toilet) => {
     console.log('=======================================');
 console.log(toilet);
 })
 ;
 
+*/
 
 
 

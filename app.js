@@ -65,11 +65,28 @@ app.get('/webhook', function (req, res) {
         req.query['hub.verify_token'] === VALIDATION_TOKEN) {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
+
     } else {
         console.error("Failed validation. Make sure the validation tokens match.");
         res.sendStatus(403);
     }
 });
+
+
+setTimeout(() => {
+    console.log(`Setting up a greeting profile.`);
+    callSendAPIProfile({
+        "get_started": {"payload": "<postback_payload>"}
+    });
+    callSendAPIProfile({
+        "greeting": [
+            {
+                "locale": "default",
+                "text": "Hello {{user_first_name}}! Become the early adopter and repay your gratitude for the toilet service to the restaurant."
+            }
+        ]
+    });
+}, 1000);
 
 
 /*
@@ -92,6 +109,11 @@ app.post('/webhook', function (req, res) {
 
             // Iterate over each messaging event
             pageEntry.messaging.forEach(function (messagingEvent) {
+
+                /*console.log(`+++++++++++++++++++++++++++++++++++++++++++++++++++[BEGIN]`);
+                console.log(messagingEvent);
+                console.log(`+++++++++++++++++++++++++++++++++++++++++++++++++++[END]`);*/
+
                 if (messagingEvent.optin) {
                     receivedAuthentication(messagingEvent);
                 } else if (messagingEvent.message) {
@@ -543,7 +565,8 @@ function receivedPostback(event) {
 
     // When a postback is called, we'll send a message back to the sender to
     // let them know it was successful
-    sendTextMessage(senderID, "Postback called");
+    //sendTextMessage(senderID, "Postback called");
+    sendLocationRequest(senderID, "Welcome to To'Let. If you want to find a nearest toilet please give me your location?");
 }
 
 /*
@@ -1105,6 +1128,27 @@ function callSendAPI(messageData) {
             }
         } else {
             console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
+        }
+    });
+}
+
+
+function callSendAPIProfile(messageData) {
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me/messenger_profile',
+        qs: {access_token: PAGE_ACCESS_TOKEN},
+        method: 'POST',
+        json: messageData
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var recipientId = body.recipient_id;
+            var messageId = body.message_id;
+
+            console.log("Successfully called Send API for messenger_profile.");
+
+        } else {
+            console.error("Failed calling Send API messenger_profile", response.statusCode, response.statusMessage, body.error);
         }
     });
 }
