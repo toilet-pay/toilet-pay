@@ -76,15 +76,50 @@ app.get('/webhook', function (req, res) {
 setTimeout(() => {
     console.log(`Setting up a greeting profile.`);
     callSendAPIProfile({
-        "get_started": {"payload": "<postback_payload>"}
-    });
-    callSendAPIProfile({
+        "get_started": {"payload": "GET_STARTED"},
         "greeting": [
             {
                 "locale": "default",
-                "text": "Hello {{user_first_name}}! Become the early adopter and repay your gratitude for the toilet service to the restaurant."
+                "text": "{{user_first_name}} become the early adopter and repay your gratitude for the toilet service to the restaurant."
             }
-        ]
+        ],
+
+        /*"whitelisted_domains":[
+            "https://toiletpay.co",
+        ],
+
+        "home_url" : {
+            "url": "https://toiletpay.co",
+            "webview_height_ratio": "tall",
+            "webview_share_button": "show",
+            "in_test":false
+        },*/
+
+        /*"persistent_menu":[
+            {
+                "locale":"default",
+                "composer_input_disabled": true,
+                "call_to_actions":[
+                    {
+                        "title":"My Account",
+                        "type":"nested",
+                        "call_to_actions":[
+                            {
+                                "title":"Pay Bill",
+                                "type":"postback",
+                                "payload":"PAYBILL_PAYLOAD"
+                            },
+                            {
+                                "type":"web_url",
+                                "title":"Latest News",
+                                "url":"https://www.messenger.com/",
+                                "webview_height_ratio":"full"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]*/
     });
 }, 1000);
 
