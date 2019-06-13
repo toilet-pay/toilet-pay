@@ -7,7 +7,6 @@
     "type": "git",
     "url": "https://github.com/toilet-pay/toilet-pay-chatbot"
   },
-
   "main": "app.js",
   "engines": {
     "node": "8.9.4"
