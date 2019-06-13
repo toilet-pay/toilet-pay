@@ -13,10 +13,12 @@
     "node": "8.9.4"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "npm run develop",
     "develop": "nodemon app.js",
     "lint": "jshint --exclude node_modules .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier --config .prettierrc --write \"src/**/*.{js,ts,tsx,js}\" webpack.config.js",
+    "prettier-watch": "onchange --initial \"**/*.{js,ts,tsx,json}\" -- npm run prettier"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -25,5 +27,9 @@
     "express": "^4.13.4",
     "request": "^2.72.0",
     "superagent": "^3.8.2"
+  },
+  "devDependencies": {
+    "prettier": "^1.12.1",
+    "onchange": "^5.0.2"
   }
 }
