@@ -1,5 +1,5 @@
 const superagent = require('superagent');
-const LOCATIONS = require('../locations.js');
+const LOCATIONS = require('./locations.js');
 const { GOOGLE_API_KEY } = require('./config');
 
 module.exports = async function findNearestToilet(lat, long) {
