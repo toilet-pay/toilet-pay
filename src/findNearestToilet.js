@@ -41,9 +41,9 @@ async function findNearestToiletFromDB(lat, long) {
 }
 
 async function findNearestToiletFromGoogle(lat, long) {
-    const responseRaw = await superagent.get(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankby=distance&type=restaurant&query=toilet&keyword=&opennow&key="${GOOGLE_API_KEY}"`,
-    );
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankby=distance&type=restaurant&query=toilet&keyword=&opennow&key=${GOOGLE_API_KEY}`;
+    //console.log(url);
+    const responseRaw = await superagent.get(url);
 
     const response = JSON.parse(responseRaw.text);
 
@@ -57,11 +57,11 @@ async function findNearestToiletFromGoogle(lat, long) {
     //return sortedLocations[0];
 }
 
-/*
+
 findNearestToiletFromGoogle(50.050445, 14.432343).then((toilet) => {
     console.log('=======================================');
 console.log(toilet);
 })
 ;
-
+/*
 */
