@@ -4,7 +4,7 @@ config.load(process.env);
 module.exports = {
     SERVER_URL: config
         .get('SERVER_URL')
-        .url()
+        //TODO: .url()
         .required().value,
     MESSENGER_APP_SECRET: config.get('MESSENGER_APP_SECRET').required().value,
     MESSENGER_VALIDATION_TOKEN: config.get('MESSENGER_VALIDATION_TOKEN').required().value,
