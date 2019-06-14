@@ -1,4 +1,5 @@
 const config = require('configchecker').ConfigChecker.from(require('dotenv').config().parsed);
+config.load(process.env);
 
 module.exports = {
     SERVER_URL: config
