@@ -1,5 +1,6 @@
 const superagent = require('superagent');
 const LOCATIONS = require('../locations.js');
+const { GOOGLE_API_KEY } = require('./config');
 
 module.exports = async function findNearestToilet(lat, long) {
     const [nearestToiletFromDB, nearestToiletFromGoogle] = await Promise.all([
@@ -41,7 +42,7 @@ async function findNearestToiletFromDB(lat, long) {
 
 async function findNearestToiletFromGoogle(lat, long) {
     const responseRaw = await superagent.get(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankby=distance&type=restaurant&query=toilet&keyword=&opennow&key=AIzaSyDeTjAOKV66YAuO1TOWIiX11etHey_cPJc`,
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankby=distance&type=restaurant&query=toilet&keyword=&opennow&key="${GOOGLE_API_KEY}"`,
     );
 
     const response = JSON.parse(responseRaw.text);

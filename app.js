@@ -2,7 +2,6 @@
 
 const
     bodyParser = require('body-parser'),
-    config = require('config'),
     crypto = require('crypto'),
     express = require('express'),
     https = require('https'),
@@ -10,6 +9,13 @@ const
     superagent = require('superagent'),
     findNearestToilet = require('./src/findNearestToilet')
 ;
+
+const { SERVER_URL,
+    MESSENGER_APP_SECRET,
+    MESSENGER_VALIDATION_TOKEN,
+    MESSENGER_PAGE_ACCESS_TOKEN } = require('./src/config');
+
+
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
@@ -24,45 +30,13 @@ console.log(findNearestToilet(50.0874174, 14.4027273));*/
 
 
 /*
- * Be sure to setup your config values before running this code. You can
- * set them using environment variables or modifying the config file in /config.
- *
- */
-
-// App Secret can be retrieved from the App Dashboard
-const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ?
-    process.env.MESSENGER_APP_SECRET :
-    config.get('appSecret');
-
-// Arbitrary value used to validate a webhook
-const VALIDATION_TOKEN = (process.env.MESSENGER_VALIDATION_TOKEN) ?
-    (process.env.MESSENGER_VALIDATION_TOKEN) :
-    config.get('validationToken');
-
-// Generate a page access token for your page from the App Dashboard
-const PAGE_ACCESS_TOKEN = (process.env.MESSENGER_PAGE_ACCESS_TOKEN) ?
-    (process.env.MESSENGER_PAGE_ACCESS_TOKEN) :
-    config.get('pageAccessToken');
-
-// URL where the app is running (include protocol). Used to point to scripts and
-// assets located at this address.
-const SERVER_URL = (process.env.SERVER_URL) ?
-    (process.env.SERVER_URL) :
-    config.get('serverURL');
-
-if (!(APP_SECRET && VALIDATION_TOKEN && PAGE_ACCESS_TOKEN && SERVER_URL)) {
-    console.error("Missing config values");
-    process.exit(1);
-}
-
-/*
  * Use your own validation token. Check that the token used in the Webhook
  * setup is the same token used here.
  *
  */
 app.get('/webhook', function (req, res) {
     if (req.query['hub.mode'] === 'subscribe' &&
-        req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+        req.query['hub.verify_token'] === MESSENGER_VALIDATION_TOKEN) {
         console.log("Validating webhook");
         res.status(200).send(req.query['hub.challenge']);
 
@@ -218,7 +192,7 @@ function verifyRequestSignature(req, res, buf) {
         var method = elements[0];
         var signatureHash = elements[1];
 
-        var expectedHash = crypto.createHmac('sha1', APP_SECRET)
+        var expectedHash = crypto.createHmac('sha1', MESSENGER_APP_SECRET)
             .update(buf)
             .digest('hex');
 
@@ -1145,7 +1119,7 @@ function sendAccountLinking(recipientId) {
 function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {access_token: PAGE_ACCESS_TOKEN},
+        qs: {access_token: MESSENGER_PAGE_ACCESS_TOKEN},
         method: 'POST',
         json: messageData
 
@@ -1171,7 +1145,7 @@ function callSendAPI(messageData) {
 function callSendAPIProfile(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messenger_profile',
-        qs: {access_token: PAGE_ACCESS_TOKEN},
+        qs: {access_token: MESSENGER_PAGE_ACCESS_TOKEN},
         method: 'POST',
         json: messageData
 
