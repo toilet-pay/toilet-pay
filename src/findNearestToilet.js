@@ -41,6 +41,10 @@ async function findNearestToiletFromDB(lat, long) {
 }
 
 async function findNearestToiletFromGoogle(lat, long) {
+    
+    // Tryied to search in OSM Nominatim API but there are poor results https://nominatim.openstreetmap.org/search.php?q=restaurace&polygon_geojson=1&viewbox=14.47721%2C50.08175%2C14.50768%2C50.07487
+    
+    
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat},${long}&rankby=distance&type=restaurant&query=toilet&keyword=&opennow&key=${GOOGLE_API_KEY}`;
     //console.log(url);
     const responseRaw = await superagent.get(url);
